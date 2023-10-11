@@ -17,7 +17,6 @@
 
 
 # load packages
-library(httr)
 library(jsonlite)
 library(DescTools)
 library(tidyverse)
@@ -25,7 +24,7 @@ library(magrittr)
 library(rlang)
 library(lubridate)
 library(anytime)
-library(ggplot2)
+
 
 #Create a function to the followig:
 transform_metadata_to_df<-
@@ -47,9 +46,10 @@ df_stattions_metadata <-
                          1,
                          .default =NA_character_)
   ) %>% 
+  # at this point, the timezone of latestData is already "UTC" (tz(df_stattions_metadata$latestData))
   mutate(
-    latestData = as_datetime(latestData, tz="Europe/London")
-    ) # "UTC" became an error, then used London instead.
+    latestData = as_datetime(latestData)
+    ) 
 
 # Create 2 columns "lat"& "lon" from "location" column
 df_stattions_metadata <-
