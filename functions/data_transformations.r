@@ -55,6 +55,7 @@ df_stattions_metadata <-
 df_stattions_metadata <-
   df_stattions_metadata %>% 
   # let the location column to be 2 levels
+  # unlist to make it a vector?
   mutate(location = map(location, unlist)) %>% 
   mutate(
     lat = map_dbl(location, "latLon.lat"),
@@ -65,3 +66,23 @@ df_stattions_metadata <-
   
   }
 
+
+#############################################################################
+# Task4a
+
+# Add a function "to_iso8601"
+# take two arguments: a date time variable and an offset measured in days
+# return the date time variable in ISO8601 format, with the offset added.
+# There should be a letter "Z" appended to the end of the date string, to indicate the the time zone is UTC.
+
+
+to_iso8601 <- function(DateTime, Offset){
+  Date <- iso8601(as.Date(DateTime)+ Offset)
+  Time <- 
+    paste0(iso8601(DateTime),"Z")
+  result <- paste0(Date, str_sub(Time, -10, -1))
+  result
+}
+
+# example:
+to_iso8601(as_datetime("2016-09-01 10:11:12"),-4)

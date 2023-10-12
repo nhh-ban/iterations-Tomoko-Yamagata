@@ -64,6 +64,3 @@ stations_metadata_df %>%
   geom_line() + 
   theme_classic()
 
-
-
-
