@@ -24,6 +24,7 @@ library(magrittr)
 library(rlang)
 library(lubridate)
 library(anytime)
+library(ggplot2)
 
 
 #Create a function to the followig:
@@ -86,3 +87,14 @@ to_iso8601 <- function(DateTime, Offset){
 
 # example:
 to_iso8601(as_datetime("2016-09-01 10:11:12"),-4)
+
+
+
+##############################################################################
+# Task5
+# Add function transform_volumes()
+# to transform jsondata into dataframe
+transform_volumes<-
+  function(jsondata){
+    as.data.frame(jsondata)
+  }
