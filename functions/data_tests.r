@@ -5,24 +5,36 @@
 # All tests are packed in a function test_stations_metadata that apples
 # all the aforementioned tests
 
+
+#Create a function to check the column names of input dataframe
 test_stations_metadata_colnames <-
   function(df) {
     
+    #Create a vector which contains the columns' names
+    #of the dataframe created by the function "transform_metadata_to_df" 
     expected_colnames <- c("id", "name", "latestData", "lat", "lon")
     
+    #If the column names of "df" is the same with the columnnames 
+    #created by the function "transform_metadata_to_df", print the PASS message
     if (all(colnames(df) == expected_colnames) == TRUE) {
       print("PASS: Data has the correct columns")
+      # otherwise, print the FAIL... massage
     } else{
       print("FAIL: Columns do not match the correct specification")
     }
   }
 
+
+# Create a function to check the row numbers of the dataframe
 test_stations_metadata_nrows <-
   function(df) {
     
+    #Define the range of expected row volume of the input dataframe
     min_expected_rows <- 5000
     max_expected_rows <- 10000
-    
+
+    #If the total rows of the input dataframe is between 5000 and 10000
+    #print "PASS~~~" message. Otherwise, print "FAIL" messages
     if (nrow(df) > min_expected_rows & nrow(df) < max_expected_rows) {
       print("PASS: Data has a reasonable number of rows")
     } else if (nrow(df) <= min_expected_rows) {
@@ -32,6 +44,7 @@ test_stations_metadata_nrows <-
     }
   }
 
+#Create a function to check the data types of each column of the input dataframe
 test_stations_metadata_coltypes <-
   function(df) {
     expected_coltypes <-
@@ -45,10 +58,13 @@ test_stations_metadata_coltypes <-
     }
   }
   
+#Create a function to check the missing values in the input dataframe
 test_stations_metadata_nmissing <-
   function(df) {
     max_miss_vals <- 200
-    
+
+    #If the total number of NA values are smaller than 200,
+    #print "PASS~~"message. Otherwise, print "FAIL" message
     if (df %>% map_int( ~ sum(is.na((.)))) %>% sum(.) < max_miss_vals) {
       print("PASS: Amount of missing values is reasonable")
     } else {
@@ -56,6 +72,7 @@ test_stations_metadata_nmissing <-
     }
   }
 
+#Create a function to check timezone of latesteDate column in the input dataframe
 test_stations_metadata_latestdata_timezone <-
   function(df) {
     
@@ -66,7 +83,7 @@ test_stations_metadata_latestdata_timezone <-
     }
   }
 
-
+# Create an aggregated function to set all test functions above
 test_stations_metadata <- 
   function(df){
     test_stations_metadata_colnames(df)

@@ -64,6 +64,5 @@ stations_metadata_df %>%
   geom_line() + 
   theme_classic()
 
-
-
-
+# Task6 
+# Issue: Plot cannot be visible.....
